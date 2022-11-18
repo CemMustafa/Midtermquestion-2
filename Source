@@ -1,0 +1,103 @@
+#include "main.h"
+
+
+void Config(void)
+{
+	RCC->CR |= 0x00030000;
+	while(!(RCC->CR & 0x00020000));
+	RCC->CR |= 0x00080000;
+	RCC->PLLCFGR |= 0x00400000;
+	RCC->PLLCFGR |= 0x00000004;
+	RCC->PLLCFGR |= 0x00005A00;
+	RCC->PLLCFGR |= 0x00000000;
+	RCC->CFGR |= 0x00000000;
+	RCC->CFGR |= 0x00080000;
+	RCC->CFGR |= 0x00001400;
+	RCC->CIR |= 0x00800000;
+
+
+}
+void init_leds()
+{
+	RCC->AHB1ENR = 0x00000008;
+
+		GPIOD->MODER = 0x40000000;
+		GPIOD->OTYPER = 0x00000000;
+		GPIOD->OSPEEDR = 0xFF000000;
+		GPIOD->PUPDR = 0x00000000;
+}
+void turn_name_on()
+{
+	GPIOD->ODR |= 0x0000F000;
+}
+void turn_surname_on()
+{
+	GPIOD->ODR |= 0x0000F000;
+}
+void turn_name_off()
+{
+	GPIOD->ODR &=~ 0x0000F000;
+}
+void turn_surname_off()
+{
+	GPIOD->ODR &=~ 0x0000F000;
+}
+void gecikme(uint32_t time)
+{
+	while(time--);
+}
+
+int main(void)
+{
+
+
+  Config();
+  init_leds();
+
+  while (1)
+  {
+
+	  turn_name_on();
+	  gecikme(1000000);
+	  turn_name_off();
+	  gecikme(1000000);
+	  turn_name_on();
+	  gecikme(1000000);
+	  turn_name_off();
+	  gecikme(1000000);
+	  turn_name_on();
+	  gecikme(1000000);
+	  turn_name_off();
+	  gecikme(1000000);
+	  turn_name_on();
+	  gecikme(1000000);
+	  turn_name_off();
+	  gecikme(1000000);
+	  turn_name_on();
+	  gecikme(1000000);
+	  turn_name_off();
+	  gecikme(1000000);
+	  turn_name_on();
+	  gecikme(1000000);
+	  turn_name_off();
+	  gecikme(1000000);
+	  turn_name_on();
+	  gecikme(1000000);
+	  turn_name_off();
+	  gecikme(1000000);
+	  turn_surname_on();
+	  gecikme(1000000);
+	  turn_surname_off();
+	  gecikme(1000000);
+	  turn_surname_on();
+	  gecikme(1000000);
+	  turn_surname_off();
+	  gecikme(1000000);
+	  turn_surname_on();
+	  gecikme(1000000);
+	  turn_surname_off();
+	  gecikme(3000000);
+
+  }
+
+}
